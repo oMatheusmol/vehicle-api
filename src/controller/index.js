@@ -1,7 +1,21 @@
 const {
-  vehiclePost, readAll, readParams, readAllParams, updateVehicle, deleteVehicle,
+  vehiclePost,
+  read,
+  readParams,
+  updateVehicle,
+  deleteVehicle,
+  readParamsAno,
+  readParamsMarca,
+  readParamsModelo,
 } = require('./vehicle');
 
 module.exports = {
-  vehiclePost, readAll, readParams, readAllParams, updateVehicle, deleteVehicle,
+  vehiclePost,
+  read,
+  readParams,
+  updateVehicle,
+  deleteVehicle,
+  readParamsAno,
+  readParamsMarca,
+  readParamsModelo,
 };

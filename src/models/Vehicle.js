@@ -33,7 +33,7 @@ const vehicleSchema = new mongoose.Schema({
     lowercase: true,
   },
   ano: {
-    type: Number,
+    type: String,
     require: true,
     trim: true,
   },

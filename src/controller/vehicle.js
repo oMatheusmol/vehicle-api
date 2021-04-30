@@ -15,16 +15,8 @@ const vehiclePost = async (req, res) => {
   }
 };
 
-const readAll = async (req, res) => {
-  try {
-    await Vehicle.find({}).then((vehicle) => {
-      res.status(200).send(vehicle);
-    }).catch(() => {
-      res.status(500).send();
-    });
-  } catch (e) {
-    res.status(401).send({ error: 'Error.' });
-  }
+const read = async (req, res) => {
+  res.status(200).send(req.vehicle);
 };
 
 const readParams = async (req, res) => {
@@ -37,15 +29,45 @@ const readParams = async (req, res) => {
   }
 };
 
-const readAllParams = async (req, res) => {
-  try {
-    const vehicleParam = req.params;
-    const vehicles = await Vehicle.find(vehicleParam);
-    if (!vehicles) return res.send({ error: 'Vehicles has not found!' });
-    res.send(vehicles);
-  } catch (e) {
-    res.status(401).send({ error: 'Error.' });
-  }
+const readParamsAno = async (req, res) => {
+  const vehicles = req.vehicle;
+  const param = req.params;
+  let arr = [];
+  const vehicle = Object.values(param)[0];
+  vehicles.forEach((i) => {
+    if (i.ano === vehicle) {
+      arr += i;
+    }
+  });
+  res.send(arr);
+};
+
+const readParamsModelo = async (req, res) => {
+  const vehicles = req.vehicle;
+  const param = req.params;
+  let arr = [];
+  const vehicle = Object.values(param)[0];
+  vehicles.forEach((i) => {
+    console.log(i.modelo);
+    if (i.modelo === vehicle) {
+      arr += i;
+    }
+  });
+  res.send(arr);
+};
+
+const readParamsMarca = async (req, res) => {
+  const vehicles = req.vehicle;
+  const param = req.params;
+  let arr = [];
+  const vehicle = Object.values(param)[0];
+  vehicles.forEach((i) => {
+    console.log(i.marca);
+    if (i.marca === vehicle) {
+      arr += i;
+    }
+  });
+  res.send(arr);
 };
 
 const updateVehicle = async (req, res) => {
@@ -71,19 +93,17 @@ const updateVehicle = async (req, res) => {
 };
 
 const deleteVehicle = async (req, res) => {
-  try {
-    const vehicle = await Vehicle.findOne(req.params);
-
-    if (!vehicle) {
-      throw new Error();
-    }
-    await Vehicle.deleteOne(vehicle);
-    res.status(200).send('Product deleted!');
-  } catch (e) {
-    res.status(401).send({ error: 'Error.' });
-  }
+  await Vehicle.deleteOne(req.vehicle);
+  res.status(200).send('Product deleted!');
 };
 
 module.exports = {
-  vehiclePost, readAll, readParams, readAllParams, updateVehicle, deleteVehicle,
+  vehiclePost,
+  read,
+  readParams,
+  updateVehicle,
+  deleteVehicle,
+  readParamsAno,
+  readParamsMarca,
+  readParamsModelo,
 };
