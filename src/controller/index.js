@@ -1,5 +1,7 @@
-const { vehiclePost } = require('./vehicle');
+const {
+  vehiclePost, readAll, readParams, readAllParams,
+} = require('./vehicle');
 
 module.exports = {
-  vehiclePost,
+  vehiclePost, readAll, readParams, readAllParams,
 };
