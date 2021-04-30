@@ -66,10 +66,24 @@ const updateVehicle = async (req, res) => {
     await vehicle.save();
     res.status(200).send(vehicle);
   } catch (e) {
-    res.status(400).send();
+    res.status(401).send({ error: 'Error.' });
+  }
+};
+
+const deleteVehicle = async (req, res) => {
+  try {
+    const vehicle = await Vehicle.findOne(req.params);
+
+    if (!vehicle) {
+      throw new Error();
+    }
+    await Vehicle.deleteOne(vehicle);
+    res.status(200).send('Product deleted!');
+  } catch (e) {
+    res.status(401).send({ error: 'Error.' });
   }
 };
 
 module.exports = {
-  vehiclePost, readAll, readParams, readAllParams, updateVehicle,
+  vehiclePost, readAll, readParams, readAllParams, updateVehicle, deleteVehicle,
 };

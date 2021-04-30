@@ -3,6 +3,7 @@ const controller = require('../controller');
 const routers = (router) => {
   router.post('/vehicle', controller.vehiclePost);
   router.patch('/vehicle/update/:placa', controller.updateVehicle);
+  router.delete('/vehicle/delete/:placa', controller.deleteVehicle);
   router.get('/vehicles', controller.readAll);
   router.get('/vehicles/placa/:placa', controller.readParams);
   router.get('/vehicles/chassi/:chassi', controller.readParams);
