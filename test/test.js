@@ -25,7 +25,7 @@ describe('Testes:', () => {
     assert.strictEqual(result.ano, String(body.ano));
   });
 
-  it('Post teste-p', (done) => {
+  it('Post ferrari', (done) => {
     nock('https://mt-node-stock-api.glitch.me')
       .post('/vehicle')
       .reply(200);
@@ -40,6 +40,20 @@ describe('Testes:', () => {
         ano: 2021,
       })
       .expect(201)
+      .end(done);
+  });
+
+  it('Post error', (done) => {
+    nock('https://mt-node-stock-api.glitch.me')
+      .post('/vehicle')
+      .reply(200);
+    supertest(index.server)
+      .post('/vehicle')
+      .send({
+        placa: '111',
+        chassi: 111,
+      })
+      .expect(405)
       .end(done);
   });
 
@@ -64,7 +78,7 @@ describe('Testes:', () => {
         marca: 'ferrari',
         ano: 2021,
       })
-      .expect(200)
+      .expect(301)
       .end(done);
   });
 
@@ -75,6 +89,13 @@ describe('Testes:', () => {
       .end(done);
   });
 
+  it('Get error 404', (done) => {
+    supertest(index.server)
+      .get('/asdasdasd')
+      .expect(404)
+      .end(done);
+  });
+
   it('Delete placa 111', (done) => {
     nock('https://mt-node-stock-api.glitch.me')
       .post('/vehicle')
@@ -82,7 +103,7 @@ describe('Testes:', () => {
     supertest(index.server)
       .delete('/vehicle/delete/111')
       .send()
-      .expect(200)
+      .expect(303)
       .end(done);
   });
 });

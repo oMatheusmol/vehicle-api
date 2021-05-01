@@ -8,21 +8,21 @@ const vehiclePost = async (req, res) => {
     prod.save().then(() => {
       res.status(201).send(prod);
     }).catch(() => {
-      res.status(500).send();
+      res.status(405).send();
     });
   } catch (e) {
-    res.status(401).send({ error: 'Error.' });
+    res.status(500).send({ error: 'Error.' });
   }
 };
 
 const read = async (req, res) => {
-  res.status(200).send(req.vehicle);
+  res.status(302).send(req.vehicle);
 };
 
 const readParams = async (req, res) => {
   try {
     const vehicle = await Vehicle.findOne(req.params);
-    if (!vehicle) return res.send('Vehicle has not found!');
+    if (!vehicle) return res.status(404).send('Vehicle has not found!');
     res.send(vehicle);
   } catch (e) {
     res.status(401).send({ error: 'Error.' });
@@ -52,18 +52,18 @@ const updateVehicle = async (req, res) => {
     const vehicle = await Vehicle.findOne(req.params);
 
     if (!vehicle) {
-      res.status(400).send({ error: 'Invalid vehicle!' });
+      res.status(404).send({ error: 'Invalid vehicle!' });
     }
     const updates = Object.keys(req.body);
     const allowUpdates = ['placa', 'chassi', 'renavam', 'modelo', 'marca', 'ano'];
     const isValidOperation = updates.every((update) => allowUpdates.includes(update));
 
     if (!isValidOperation) {
-      return res.status(400).send({ error: 'Invalid updates!' });
+      return res.status(304).send({ error: 'Invalid updates!' });
     }
     updates.forEach((update) => vehicle[update] = req.body[update]);
     await vehicle.save();
-    res.status(200).send(vehicle);
+    res.status(301).send(vehicle);
   } catch (e) {
     res.status(401).send({ error: 'Error.' });
   }
@@ -71,7 +71,7 @@ const updateVehicle = async (req, res) => {
 
 const deleteVehicle = async (req, res) => {
   await Vehicle.deleteOne(req.vehicle);
-  res.status(200).send('Product deleted!');
+  res.status(303).send('Product deleted!');
 };
 
 module.exports = {
