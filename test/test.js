@@ -60,7 +60,7 @@ describe('Testes:', () => {
   it('Get /vehicles/ferrari', (done) => {
     supertest(index.server)
       .get('/vehicles/ferrari')
-      .expect(200)
+      .expect(226)
       .end(done);
   });
 
@@ -82,16 +82,34 @@ describe('Testes:', () => {
       .end(done);
   });
 
-  it('Get chassi 111', (done) => {
+  it('Get chassi 111 fail', (done) => {
     supertest(index.server)
       .get('/vehicles/chassi/ferrari')
       .expect(401)
       .end(done);
   });
 
+  it('Get vehicles', (done) => {
+    supertest(index.server)
+      .get('/vehicles')
+      .expect(302)
+      .end(done);
+  });
+
   it('Get error 404', (done) => {
     supertest(index.server)
       .get('/asdasdasd')
+      .expect(404)
+      .end(done);
+  });
+
+  it('Delete fail', (done) => {
+    nock('https://mt-node-stock-api.glitch.me')
+      .post('/vehicle')
+      .reply(200);
+    supertest(index.server)
+      .delete('/vehicle/delete/222')
+      .send()
       .expect(404)
       .end(done);
   });
