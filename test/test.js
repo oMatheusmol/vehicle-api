@@ -85,22 +85,4 @@ describe('Testes:', () => {
       .expect(200)
       .end(done);
   });
-
-  // it('Teste da rota productNames', (done) => {
-  //   const resultadoEsperado = [
-  //     { name: 'cachorro', price: 110.59 },
-  //     { name: 'leao', price: 1000 },
-  //     { name: 'vaca', price: 75 },
-
-  //   ];
-  //   resultadoEsperado.sort((a, b) => a.price - b.price);
-  //   const newarr = [];
-  //   for (const prod in resultadoEsperado) {
-  //     newarr.push(resultadoEsperado[prod].name);
-  //   }
-  //   supertest(index.server)
-  //     .get('/productsNames')
-  //     .expect(200, newarr)
-  //     .end(done);
-  // });
 });
