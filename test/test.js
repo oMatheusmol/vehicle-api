@@ -43,7 +43,7 @@ describe('Testes:', () => {
       .end(done);
   });
 
-  it('Post error', (done) => {
+  it('Post fail', (done) => {
     nock('https://mt-node-stock-api.glitch.me')
       .post('/vehicle')
       .reply(200);
@@ -54,13 +54,6 @@ describe('Testes:', () => {
         chassi: 111,
       })
       .expect(405)
-      .end(done);
-  });
-
-  it('Get /vehicles/ferrari', (done) => {
-    supertest(index.server)
-      .get('/vehicles/ferrari')
-      .expect(226)
       .end(done);
   });
 
@@ -82,6 +75,27 @@ describe('Testes:', () => {
       .end(done);
   });
 
+  it('Patch fail', (done) => {
+    nock('https://mt-node-stock-api.glitch.me')
+      .post('/vehicle')
+      .reply(200);
+    supertest(index.server)
+      .patch('/vehicle/update/fail')
+      .send({
+        placa: '111',
+        chassi: 333,
+      })
+      .expect(401)
+      .end(done);
+  });
+
+  it('Get /vehicles/ferrari', (done) => {
+    supertest(index.server)
+      .get('/vehicles/ferrari')
+      .expect(226)
+      .end(done);
+  });
+
   it('Get chassi 111 fail', (done) => {
     supertest(index.server)
       .get('/vehicles/chassi/ferrari')
@@ -96,9 +110,9 @@ describe('Testes:', () => {
       .end(done);
   });
 
-  it('Get error 404', (done) => {
+  it('Get no existing route.', (done) => {
     supertest(index.server)
-      .get('/asdasdasd')
+      .get('/fail')
       .expect(404)
       .end(done);
   });
