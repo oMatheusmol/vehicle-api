@@ -4,9 +4,7 @@ const {
   readParams,
   updateVehicle,
   deleteVehicle,
-  readParamsAno,
-  readParamsMarca,
-  readParamsModelo,
+  readParamsObject,
 } = require('./vehicle');
 
 module.exports = {
@@ -15,7 +13,5 @@ module.exports = {
   readParams,
   updateVehicle,
   deleteVehicle,
-  readParamsAno,
-  readParamsMarca,
-  readParamsModelo,
+  readParamsObject,
 };

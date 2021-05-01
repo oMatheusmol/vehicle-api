@@ -29,45 +29,22 @@ const readParams = async (req, res) => {
   }
 };
 
-const readParamsAno = async (req, res) => {
-  const vehicles = req.vehicle;
-  const param = req.params;
-  let arr = [];
-  const vehicle = Object.values(param)[0];
-  vehicles.forEach((i) => {
-    if (i.ano === vehicle) {
-      arr += i;
-    }
-  });
-  res.send(arr);
-};
-
-const readParamsModelo = async (req, res) => {
-  const vehicles = req.vehicle;
-  const param = req.params;
-  let arr = [];
-  const vehicle = Object.values(param)[0];
-  vehicles.forEach((i) => {
-    console.log(i.modelo);
-    if (i.modelo === vehicle) {
-      arr += i;
-    }
-  });
-  res.send(arr);
-};
-
-const readParamsMarca = async (req, res) => {
-  const vehicles = req.vehicle;
-  const param = req.params;
-  let arr = [];
-  const vehicle = Object.values(param)[0];
-  vehicles.forEach((i) => {
-    console.log(i.marca);
-    if (i.marca === vehicle) {
-      arr += i;
-    }
-  });
-  res.send(arr);
+const readParamsObject = async (req, res) => {
+  try {
+    const vehicles = req.vehicle;
+    const param = req.params;
+    let arr = [];
+    const vehicle = Object.values(param)[0];
+    vehicles.forEach((i) => {
+      const { ano, modelo, marca } = i;
+      if (ano === vehicle || modelo === vehicle || marca === vehicle) {
+        arr += i;
+      }
+    });
+    res.send(arr);
+  } catch {
+    res.status(401).send({ error: 'Error.' });
+  }
 };
 
 const updateVehicle = async (req, res) => {
@@ -103,7 +80,5 @@ module.exports = {
   readParams,
   updateVehicle,
   deleteVehicle,
-  readParamsAno,
-  readParamsMarca,
-  readParamsModelo,
+  readParamsObject,
 };

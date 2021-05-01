@@ -3,7 +3,7 @@ const express = require('express');
 require('./db/mongoose');
 
 const router = new express.Router();
-const vehiclesRouter = require('./routers/vehiclesRouter');
+const vehiclesRouter = require('./router');
 
 const app = express();
 const port = process.env.PORT || 3000;
