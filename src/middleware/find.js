@@ -27,4 +27,16 @@ const findOne = async (req, res, next) => {
   }
 };
 
-module.exports = { findOne, findAll };
+const findById = async (req, res, next) => {
+  try {
+    const vehicle = await Vehicle.findById(req.params.id);
+    if (!vehicle) return res.status(500).send('Connection fail!');
+
+    req.vehicle = vehicle;
+    next();
+  } catch {
+    res.status(404).send('Vehicle was not found!');
+  }
+};
+
+module.exports = { findOne, findAll, findById };

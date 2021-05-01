@@ -98,7 +98,7 @@ describe('Testes:', () => {
 
   it('Get chassi 111 fail', (done) => {
     supertest(index.server)
-      .get('/vehicles/chassi/ferrari')
+      .get('/vehicle/chassi/ferrari')
       .expect(401)
       .end(done);
   });
