@@ -9,20 +9,20 @@ const index = require('../src/index');
 describe('Testes:', () => {
   it('Teste-unitario', () => {
     const body = {
-      placa: '6565',
-      chassi: 5656,
-      renavam: 65656,
+      placa: 'hhh6565',
+      chassi: '12345678911234567',
+      renavam: 12345678911,
       modelo: 'ferrari',
       marca: 'ferrari',
-      ano: 2021,
+      ano: 2020,
     };
     const result = new Vehicle(body);
-    assert.strictEqual(result.placa, Number(body.placa));
-    assert.strictEqual(result.chassi, Number(body.chassi));
+    assert.strictEqual(result.placa, body.placa);
+    assert.strictEqual(result.chassi, body.chassi);
     assert.strictEqual(result.renavam, Number(body.renavam));
     assert.strictEqual(result.modelo, body.modelo);
     assert.strictEqual(result.marca, body.marca);
-    assert.strictEqual(result.ano, String(body.ano));
+    assert.strictEqual(result.ano, body.ano);
   });
 
   it('Post ferrari', (done) => {
@@ -32,12 +32,12 @@ describe('Testes:', () => {
     supertest(index.server)
       .post('/vehicle')
       .send({
-        placa: '111',
-        chassi: 111,
-        renavam: 111,
+        placa: 'hhh1111',
+        chassi: '12345678911234567',
+        renavam: 12345678911,
         modelo: 'ferrari1',
         marca: 'ferrari',
-        ano: 2021,
+        ano: 1980,
       })
       .expect(201)
       .end(done);
@@ -57,19 +57,19 @@ describe('Testes:', () => {
       .end(done);
   });
 
-  it('Patch chassi 111 to 222', (done) => {
+  it('Patch chassi to 222', (done) => {
     nock('https://mt-node-stock-api.glitch.me')
       .post('/vehicle')
       .reply(200);
     supertest(index.server)
-      .patch('/vehicle/update/111')
+      .patch('/vehicle/update/hhh1111')
       .send({
-        placa: '111',
-        chassi: 222,
-        renavam: 111,
+        placa: 'hhh1111',
+        chassi: '22222222222222222',
+        renavam: 12345678911,
         modelo: 'ferrari1',
         marca: 'ferrari',
-        ano: 2021,
+        ano: 2022,
       })
       .expect(301)
       .end(done);
@@ -82,10 +82,10 @@ describe('Testes:', () => {
     supertest(index.server)
       .patch('/vehicle/update/fail')
       .send({
-        placa: '111',
+        placa: '3',
         chassi: 333,
       })
-      .expect(401)
+      .expect(404)
       .end(done);
   });
 
@@ -98,8 +98,8 @@ describe('Testes:', () => {
 
   it('Get chassi 111 fail', (done) => {
     supertest(index.server)
-      .get('/vehicle/chassi/ferrari')
-      .expect(401)
+      .get('/vehicle/chassi/facil')
+      .expect(404)
       .end(done);
   });
 
@@ -133,7 +133,7 @@ describe('Testes:', () => {
       .post('/vehicle')
       .reply(200);
     supertest(index.server)
-      .delete('/vehicle/delete/111')
+      .delete('/vehicle/delete/hhh1111')
       .send()
       .expect(303)
       .end(done);
